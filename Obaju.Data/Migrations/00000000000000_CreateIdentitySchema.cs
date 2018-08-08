@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Obaju.App.Data.Migrations
+namespace Obaju.Data.Migrations
 {
     public partial class CreateIdentitySchema : Migration
     {

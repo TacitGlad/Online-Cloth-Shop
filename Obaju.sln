@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2047
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Obaju.App", "Obaju.App\Obaju.App.csproj", "{4F164624-0A8B-4E5C-B0DF-0F173C343849}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Obaju.App", "Obaju.App\Obaju.App.csproj", "{4F164624-0A8B-4E5C-B0DF-0F173C343849}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Obaju.Data", "Obaju.Data\Obaju.Data.csproj", "{62EE55E8-8161-4725-AC93-7F19190FAA62}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Obaju.Models", "Obaju.Models\Obaju.Models.csproj", "{70E5B207-1105-44B9-BCD1-529318FFADE6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{4F164624-0A8B-4E5C-B0DF-0F173C343849}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F164624-0A8B-4E5C-B0DF-0F173C343849}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4F164624-0A8B-4E5C-B0DF-0F173C343849}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62EE55E8-8161-4725-AC93-7F19190FAA62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62EE55E8-8161-4725-AC93-7F19190FAA62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62EE55E8-8161-4725-AC93-7F19190FAA62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62EE55E8-8161-4725-AC93-7F19190FAA62}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70E5B207-1105-44B9-BCD1-529318FFADE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70E5B207-1105-44B9-BCD1-529318FFADE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70E5B207-1105-44B9-BCD1-529318FFADE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70E5B207-1105-44B9-BCD1-529318FFADE6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
