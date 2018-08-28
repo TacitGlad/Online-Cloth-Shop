@@ -8,4 +8,8 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.1.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Obaju.Constants\Obaju.Constants.csproj" />
+  </ItemGroup>
+
 </Project>

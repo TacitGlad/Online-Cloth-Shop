@@ -129,6 +129,189 @@ namespace Obaju.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("Obaju.Models.Brand", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Brands");
+                });
+
+            modelBuilder.Entity("Obaju.Models.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Gender")
+                        .IsRequired();
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.Property<string>("Type")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("Obaju.Models.Image", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Path")
+                        .IsRequired();
+
+                    b.Property<int>("ProductId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("Images");
+                });
+
+            modelBuilder.Entity("Obaju.Models.Issues", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Email")
+                        .IsRequired();
+
+                    b.Property<string>("FirstName")
+                        .IsRequired();
+
+                    b.Property<bool>("IsOpen");
+
+                    b.Property<string>("LastName")
+                        .IsRequired();
+
+                    b.Property<string>("Message")
+                        .IsRequired();
+
+                    b.Property<string>("Subject")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Issues");
+                });
+
+            modelBuilder.Entity("Obaju.Models.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("Date");
+
+                    b.Property<string>("DeliveryMethod")
+                        .IsRequired();
+
+                    b.Property<string>("InoviceAddress")
+                        .IsRequired();
+
+                    b.Property<string>("PaymentMethod")
+                        .IsRequired();
+
+                    b.Property<string>("ShippingAddress")
+                        .IsRequired();
+
+                    b.Property<string>("Status")
+                        .IsRequired();
+
+                    b.Property<decimal>("Total")
+                        .HasColumnType("decimal(8,2)");
+
+                    b.Property<int>("UserId");
+
+                    b.Property<string>("UserId1");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId1");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("Obaju.Models.OrderProduct", b =>
+                {
+                    b.Property<int>("OrderId");
+
+                    b.Property<int>("ProductId");
+
+                    b.Property<int>("Quantity");
+
+                    b.HasKey("OrderId", "ProductId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("OrderProducts");
+                });
+
+            modelBuilder.Entity("Obaju.Models.Product", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BrandId");
+
+                    b.Property<int>("CategoryId");
+
+                    b.Property<string>("Color")
+                        .IsRequired();
+
+                    b.Property<DateTime>("CreationTime");
+
+                    b.Property<string>("Details")
+                        .IsRequired();
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(8,2)");
+
+                    b.Property<int>("Quantity");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BrandId");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("Obaju.Models.Subscriber", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Email")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.ToTable("Subscribers");
+                });
+
             modelBuilder.Entity("Obaju.Models.User", b =>
                 {
                     b.Property<string>("Id")
@@ -196,6 +379,19 @@ namespace Obaju.Data.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("Obaju.Models.UserWishlist", b =>
+                {
+                    b.Property<string>("UserId");
+
+                    b.Property<int>("ProductId");
+
+                    b.HasKey("UserId", "ProductId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("UsersWishlist");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
@@ -237,6 +433,60 @@ namespace Obaju.Data.Migrations
                 {
                     b.HasOne("Obaju.Models.User")
                         .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Obaju.Models.Image", b =>
+                {
+                    b.HasOne("Obaju.Models.Product", "Product")
+                        .WithMany("Images")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Obaju.Models.Order", b =>
+                {
+                    b.HasOne("Obaju.Models.User", "User")
+                        .WithMany("Orders")
+                        .HasForeignKey("UserId1");
+                });
+
+            modelBuilder.Entity("Obaju.Models.OrderProduct", b =>
+                {
+                    b.HasOne("Obaju.Models.Order", "Order")
+                        .WithMany("Products")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Obaju.Models.Product", "Product")
+                        .WithMany("Orders")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Obaju.Models.Product", b =>
+                {
+                    b.HasOne("Obaju.Models.Brand", "Brand")
+                        .WithMany("Products")
+                        .HasForeignKey("BrandId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Obaju.Models.Category", "Category")
+                        .WithMany("Products")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Obaju.Models.UserWishlist", b =>
+                {
+                    b.HasOne("Obaju.Models.Product", "Product")
+                        .WithMany("Users")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Obaju.Models.User", "User")
+                        .WithMany("Wishlist")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

@@ -1,39 +1,53 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Obaju.App.Models;
-using System.Diagnostics;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Obaju.Models.BindingModels;
+using Obaju.Services.Interfaces;
+using System.Threading.Tasks;
 
 namespace Obaju.App.Controllers
 {
+    [AllowAnonymous]
     public class HomeController : Controller
     {
+        private readonly ILogger<HomeController> _logger;
+        private readonly IUtilityManager _utilityManager;
+
+        public HomeController(ILogger<HomeController> logger, IUtilityManager utilityManager)
+        {
+            _logger = logger;
+            _utilityManager = utilityManager;
+        }
+
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult About()
+        [HttpPost]
+        public async Task<IActionResult> Subscribe(SubscribeBindingModel model)
         {
-            ViewData["Message"] = "Your application description page.";
+            _logger.LogInformation($"{model.Email} subscribed for us.");
 
-            return View();
-        }
+            await _utilityManager.AddSubscriberAsync(model.Email);
 
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
+            return Json("You successfully subscribed for our newspaper");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public IActionResult Error(int? statusCode = null)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            if(statusCode.HasValue)
+            {
+                if(statusCode.Value == 404)
+                {
+                    var viewName = statusCode.ToString();
+                    return View(viewName: viewName);
+                }
+            }
+
+            return View();
         }
     }
 }

@@ -1,0 +1,41 @@
+﻿@model LoginFormBindingModel
+
+@{
+    ViewData["Title"] = "Sign In";
+}
+
+<div class="container">
+    <div class="col-md-12">
+        <ul class="breadcrumb">
+            <li><a href="#">Home</a></li>
+            <li>@ViewData["Title"]</li>
+        </ul>
+    </div>
+
+    <div class="col-md-6 col-md-offset-3">
+        <div class="box">
+            <h1>Login</h1>
+
+            <p class="lead">Already our customer?</p>
+            <p class="text-muted">
+                Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies
+                mi vitae est. Mauris placerat eleifend leo.
+            </p>
+            <hr>
+            <form asp-action="Login" asp-route-returnUrl="@ViewBag.ReturnUrl" method="post">
+                <div asp-validation-summary="All"></div>
+                <form-group asp-for="Email"></form-group>
+                <form-group asp-for="Password"></form-group>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-sign-in"></i> Log in</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+

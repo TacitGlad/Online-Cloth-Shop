@@ -1,0 +1,113 @@
+﻿@page
+@model ContactModel
+@{
+    ViewData["Title"] = "Contact us";
+}
+
+<div class="box" id="contact">
+    <h1>Contact</h1>
+    <p class="lead">Are you curious about something? Do you have some kind of problem with our products?</p>
+    <p>Please feel free to contact us, our customer service center is working for you 24/7.</p>
+    <hr>
+    <div class="row">
+        <div class="col-sm-4">
+            <h3><i class="fa fa-map-marker"></i> Address</h3>
+            <p>
+                13/25 New Avenue
+                <br>New Heaven
+                <br>45Y 73J
+                <br>England
+                <br>
+                <strong>Great Britain</strong>
+            </p>
+        </div>
+        <div class="col-sm-4">
+            <h3><i class="fa fa-phone"></i> Call center</h3>
+            <p class="text-muted">This number is toll free if calling from Great Britain otherwise we advise you to use the electronic form of communication.</p>
+            <p>
+                <strong>+33 555 444 333</strong>
+            </p>
+        </div>
+        <div class="col-sm-4">
+            <h3><i class="fa fa-envelope"></i> Electronic support</h3>
+            <p class="text-muted">Please feel free to write an email to us or to use our electronic ticketing system.</p>
+            <ul>
+                <li><strong><a href="mailto:">info@fakeemail.com</a></strong></li>
+                <li><strong><a href="#">Ticketio</a></strong> - our ticketing support platform</li>
+            </ul>
+        </div>
+    </div>
+    <hr>
+    <div id="map">
+    </div>
+    <hr>
+    <h2>Contact form</h2>
+    <form method="post">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label asp-for="ContactForm.FirstName"></label>
+                    <input asp-for="ContactForm.FirstName" class="form-control" />
+                    <span asp-validation-for="ContactForm.FirstName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label asp-for="ContactForm.LastName"></label>
+                    <input asp-for="ContactForm.LastName" class="form-control" />
+                    <span asp-validation-for="ContactForm.LastName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label asp-for="ContactForm.Email"></label>
+                    <input asp-for="ContactForm.Email" class="form-control" />
+                    <span asp-validation-for="ContactForm.Email" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label asp-for="ContactForm.Subject"></label>
+                    <input asp-for="ContactForm.Subject" class="form-control" />
+                    <span asp-validation-for="ContactForm.Subject" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label asp-for="ContactForm.Message"></label>
+                    <textarea asp-for="ContactForm.Message" class="form-control"></textarea>
+                    <span asp-validation-for="ContactForm.Message" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-sm-12 text-center">
+                <button type="submit" class="btn btn-primary"><i class="fa fa-envelope-o"></i> Send message</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        function initMap() {
+            var softuniCoords = { lat: 42.667012, lng: 23.352309 };
+
+            var map = new google.maps.Map(document.getElementById('map'),
+                {
+                    center: softuniCoords,
+                    mapTypeId: google.maps.MapTypeId.ROAD,
+                    scrollwheel: false,
+                    zoom: 15
+                });
+
+            var marker = new google.maps.Marker({
+                position: softuniCoords,
+                map: map
+            });
+        }
+    </script>
+
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBzm8VoClNJPq8PjpEcrKbiR6QjY40CWGk&callback=initMap" type="text/javascript"></script>
+}
+

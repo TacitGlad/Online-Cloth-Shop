@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Obaju.Models
@@ -20,6 +21,12 @@ namespace Obaju.Models
         public string City { get; set; }
 
         [DataType(DataType.PostalCode)]
-        public string PostalCode { get; set; }        
+        public string PostalCode { get; set; }
+
+        // One-to-many
+        public ICollection<Order> Orders { get; set; } = new List<Order>();
+
+        // Many-to-many
+        public ICollection<UserWishlist> Wishlist { get; set; } = new List<UserWishlist>();
     }
 }

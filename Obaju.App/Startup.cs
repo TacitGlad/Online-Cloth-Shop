@@ -4,12 +4,16 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Obaju.App.Areas.Identity.Services;
+using Obaju.App.Extensions;
 using Obaju.Data;
 using Obaju.Models;
+using Obaju.Services;
+using Obaju.Services.Interfaces;
 using System;
 
 namespace Obaju.App
@@ -33,12 +37,13 @@ namespace Obaju.App
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            //services.AddCors();
+
             services.AddDbContext<ObajuDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("ObajuConnection")));
 
             services.AddIdentity<User, IdentityRole>()
             .AddEntityFrameworkStores<ObajuDbContext>()
-            .AddDefaultUI()
             .AddDefaultTokenProviders();
 
             services.Configure<IdentityOptions>(options =>
@@ -52,12 +57,12 @@ namespace Obaju.App
                 options.Password.RequireDigit = false;
                 options.Password.RequiredLength = 4;
                 options.Password.RequiredUniqueChars = 1;
-                options.Password.RequireLowercase = true;
+                options.Password.RequireLowercase = false;
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;
 
                 // Sign-in settings
-                options.SignIn.RequireConfirmedEmail = false;
+                options.SignIn.RequireConfirmedEmail = true;
                 options.SignIn.RequireConfirmedPhoneNumber = false;
 
                 // User settings
@@ -65,10 +70,24 @@ namespace Obaju.App
 
             });
 
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.AccessDeniedPath = "/identity/auth/accessdenied";
+                options.LoginPath = "/identity/auth/login";
+            });
+
+            services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
+
             services.AddSingleton<IEmailSender, EmailSender>();
             services.Configure<AuthMessageSenderOptions>(Configuration.GetSection("SendGridAuth"));
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            // Service layer (repository)
+            services.AddScoped<IUtilityManager, UtilityManager>();
+            services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<IProductService, ProductService>();
+
+            services.AddMvc()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -85,11 +104,15 @@ namespace Obaju.App
                 app.UseHsts();
             }
 
+            app.UseStatusCodePagesWithReExecute("/Home/Error", "?statusCode={0}");
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
             app.UseAuthentication();
+
+            //app.SeedDatabase();
 
             app.UseMvc(routes =>
             {

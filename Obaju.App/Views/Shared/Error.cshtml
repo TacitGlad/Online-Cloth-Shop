@@ -1,22 +1,31 @@
-﻿@model ErrorViewModel
-@{
+﻿@{
     ViewData["Title"] = "Error";
 }
 
-<h1 class="text-danger">Error.</h1>
-<h2 class="text-danger">An error occurred while processing your request.</h2>
+<div class="container">
+    <div class="col-md-12">
+        <ul class="breadcrumb">
+            <li><a href="#">Home</a></li>
+            <li>@ViewData["Title"]</li>
+        </ul>
 
-@if (Model.ShowRequestId)
-{
-    <p>
-        <strong>Request ID:</strong> <code>@Model.RequestId</code>
-    </p>
-}
+        <div class="row" id="error-page">
+            <div class="col-sm-6 col-sm-offset-3">
+                <div class="box">
+                    <p class="text-center"><img src="~/images/logo.png" alt="Obaju template"></p>
+                    
+                    <h3>Error.</h3>
+                    <h4 class="text-muted">An error occurred while processing your request.</h4>
 
-<h3>Development Mode</h3>
-<p>
-    Swapping to <strong>Development</strong> environment will display more detailed information about the error that occurred.
-</p>
-<p>
-    <strong>Development environment should not be enabled in deployed applications</strong>, as it can result in sensitive information from exceptions being displayed to end users. For local debugging, development environment can be enabled by setting the <strong>ASPNETCORE_ENVIRONMENT</strong> environment variable to <strong>Development</strong>, and restarting the application.
-</p>
+                    <h3>Development Mode</h3>
+                    <p class="text-center">
+                        Swapping to <strong>Development</strong> environment will display more detailed information about the error that occurred.
+                    </p>
+                    <p class="text-center">
+                        <strong>Development environment should not be enabled in deployed applications</strong>, as it can result in sensitive information from exceptions being displayed to end users. For local debugging, development environment can be enabled by setting the <strong>ASPNETCORE_ENVIRONMENT</strong> environment variable to <strong>Development</strong>, and restarting the application.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

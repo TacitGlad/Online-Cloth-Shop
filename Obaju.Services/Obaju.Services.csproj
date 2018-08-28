@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Obaju.Data\Obaju.Data.csproj" />
+    <ProjectReference Include="..\Obaju.Models\Obaju.Models.csproj" />
+  </ItemGroup>
+
+</Project>
