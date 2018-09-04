@@ -47,13 +47,15 @@ namespace Obaju.App.Extensions
 
         private static async Task SeedUsers(UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
         {
+            // seed admin user, add admin role and confirm the email.
             var adminUser = await userManager.FindByEmailAsync(DefaultAdminEmail);
-            var memberUser = await userManager.FindByEmailAsync(DefaultUserEmail);
 
             if (adminUser == null)
             {
                 adminUser = new User()
                 {
+                    FirstName = "Admin",
+                    LastName = "*",
                     UserName = DefaultAdminEmail,
                     Email = DefaultAdminEmail
                 };
@@ -61,10 +63,25 @@ namespace Obaju.App.Extensions
                 await userManager.CreateAsync(adminUser, DefaultAdminPassword);
             }
 
+            if (!await userManager.IsInRoleAsync(adminUser, RoleName.Admin))
+            {
+                await userManager.AddToRoleAsync(adminUser, RoleName.Admin);
+            }
+
+            if (!await userManager.IsEmailConfirmedAsync(adminUser))
+            {
+                await userManager.ConfirmEmailAsync(adminUser, await userManager.GenerateEmailConfirmationTokenAsync(adminUser));
+            }
+
+            // seed member user, add member role and confirm the email.
+            var memberUser = await userManager.FindByEmailAsync(DefaultUserEmail);
+
             if (memberUser == null)
             {
                 memberUser = new User()
                 {
+                    FirstName = "User",
+                    LastName = "*",
                     UserName = DefaultUserEmail,
                     Email = DefaultUserEmail
                 };
@@ -72,8 +89,15 @@ namespace Obaju.App.Extensions
                 await userManager.CreateAsync(memberUser, DefaultUserPassword);
             }
 
-            await userManager.AddToRoleAsync(adminUser, RoleName.Admin);
-            await userManager.AddToRoleAsync(memberUser, RoleName.Member);
+            if (!await userManager.IsInRoleAsync(memberUser, RoleName.Member))
+            {
+                await userManager.AddToRoleAsync(memberUser, RoleName.Member);
+            }
+
+            if (!await userManager.IsEmailConfirmedAsync(memberUser))
+            {
+                await userManager.ConfirmEmailAsync(memberUser, await userManager.GenerateEmailConfirmationTokenAsync(memberUser));
+            }  
         }
     }
 }

@@ -1,0 +1,106 @@
+﻿@model PersonalDetailsBindingModel
+@{
+    ViewData["Title"] = "Personal details";
+}
+<div class="col-md-9">
+    <div class="box">
+        <h1>Personal details</h1>
+
+        <p class="lead">Change your personal details here.</p>
+        <p class="text-muted">Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+
+        <hr />
+        <form asp-area="Identity" asp-controller="Account" asp-action="PersonalDetails" method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label asp-for="FirstName"></label>
+                        <input asp-for="FirstName" class="form-control" />
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label asp-for="LastName"></label>
+                        <input asp-for="LastName" class="form-control" />
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label asp-for="BillingAddress"></label>
+                        <input asp-for="BillingAddress" class="form-control" />
+                        <span asp-validation-for="BillingAddress" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label asp-for="BillingAddressLine2"></label>
+                        <input asp-for="BillingAddressLine2" class="form-control" />
+                        <span asp-validation-for="BillingAddressLine2" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12 col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Country"></label>
+                        <select asp-for="Country" asp-items="@((List<SelectListItem>)ViewData["CountryList"])" class="form-control"></select>
+                        <span asp-validation-for="Country" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-3">
+                    <div class="form-group">
+                        <label asp-for="City"></label>
+                        <input asp-for="City" class="form-control" />
+                        <span asp-validation-for="City" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-3">
+                    <div class="form-group">
+                        <label asp-for="PostalCode"></label>
+                        <input asp-for="PostalCode" class="form-control" />
+                        <span asp-validation-for="PostalCode" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label asp-for="PhoneNumber"></label>
+                        <input asp-for="PhoneNumber" class="form-control" />
+                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label asp-for="Email"></label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-sm-12 text-center">
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save changes</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        $(function () {
+            var message = '@TempData["Success"]';
+
+            if (message.length !== 0) {
+                showNotify({ message: message});
+            }
+        });
+    </script>
+}

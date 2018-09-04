@@ -21,9 +21,9 @@ namespace Obaju.App.Areas.Identity.Controllers
         private readonly ILogger<AccountController> _logger;
         private readonly IEmailSender _emailSender;
         private readonly IUtilityManager _utilityManager;
-        private readonly IAccountService _accountService;
+        private readonly IAccountManager _accountService;
         
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, ILogger<AccountController> logger, IEmailSender emailSender, IUtilityManager utilityManager, IAccountService accountService)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, ILogger<AccountController> logger, IEmailSender emailSender, IUtilityManager utilityManager, IAccountManager accountService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -46,7 +46,7 @@ namespace Obaju.App.Areas.Identity.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> MyAccount()
+        public async Task<IActionResult> PersonalDetails()
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
@@ -54,7 +54,7 @@ namespace Obaju.App.Areas.Identity.Controllers
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
-            ViewData["CountryList"] = _utilityManager.GetCountryList()
+            ViewBag.CountryList = _utilityManager.GetCountryList()
                 .Select(c => new SelectListItem { Value = c, Text = c })
                 .ToList();
 
@@ -64,7 +64,7 @@ namespace Obaju.App.Areas.Identity.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> MyAccount(PersonalDetailsBindingModel model)
+        public async Task<IActionResult> PersonalDetails(PersonalDetailsBindingModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -84,12 +84,18 @@ namespace Obaju.App.Areas.Identity.Controllers
             return RedirectToAction("MyAccount");
         }
 
+        [HttpGet]
+        public IActionResult ChangePassword()
+        {
+            return View();
+        }
+
         [HttpPost]
         public async Task<IActionResult> ChangePassword(ChangePasswordBindingModel model)
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return View();
             }
 
             var user = await _userManager.GetUserAsync(HttpContext.User);
@@ -104,16 +110,17 @@ namespace Obaju.App.Areas.Identity.Controllers
             {
                 foreach (var error in changePasswordResult.Errors)
                 {
-                    ModelState.AddModelError(string.Empty, error.Description);
+                    ModelState.AddModelError(error.Code, error.Description);
                 }
 
-                return BadRequest(ModelState);
+                return View();
             }
 
             await _signInManager.RefreshSignInAsync(user);
             _logger.LogInformation("User changed their password successfully.");
+            TempData["Success"] = "Your password has been changed.";
 
-            return Json("Your password has been changed.");
+            return RedirectToAction("ChangePassword");
         }
     }
 }

@@ -1,0 +1,43 @@
+﻿@{
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="col-md-12">
+        <ul class="breadcrumb">
+            <li><a href="#">Home</a></li>
+            <li>@ViewData["Title"]</li>
+        </ul>
+    </div>
+
+    <div class="col-md-3">
+        <div class="panel panel-default sidebar-menu">
+            <div class="panel-heading">
+                <h3 class="panel-title">Admin panel</h3>
+            </div>
+
+            <div class="panel-body">
+                <ul class="nav nav-pills nav-stacked">
+                    <li @if ((string)ViewData["Title"] == "Create category") { @: class="active"
+                        } ><a asp-area="Admin" asp-controller="Manage" asp-action="CreateCategory"><i class="fa fa-plus-square-o"></i> Create category</a></li>
+                    <li @if ((string)ViewData["Title"] == "Create brand") { @: class="active"
+                        } ><a asp-area="Admin" asp-controller="Manage" asp-action="CreateBrand"><i class="fa fa-plus-square-o"></i> Create brand</a></li>
+                    <li @if ((string)ViewData["Title"] == "Create product") { @: class="active"
+                        } ><a asp-area="Admin" asp-controller="Manage" asp-action="CreateProduct"><i class="fa fa-plus-square-o"></i> Create product</a></li>
+                    <li @if ((string)ViewData["Title"] == "Issues") { @: class="active"
+                        }><a asp-area="Admin" asp-controller="Manage" asp-action="Issues"><i class="fa fa-exclamation-circle"></i> Issues</a></li>
+                    <li @if ((string)ViewData["Title"] == "Send newspaper") { @: class="active"
+                        } ><a asp-area="Admin" asp-controller="Manage" asp-action="SendNewspaper"><i class="fa fa-newspaper-o"></i> Send newspaper</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-9">
+        @RenderBody()
+    </div>
+</div>
+
+@section Scripts {
+    @RenderSection("Scripts", required: false)
+}

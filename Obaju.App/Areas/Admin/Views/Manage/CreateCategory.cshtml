@@ -1,0 +1,59 @@
+﻿@model CreateCategoryBindingModel
+@{
+    ViewData["Title"] = "Create category";
+}
+
+<div class="box">
+    <h1>Create category</h1>
+    <p class="lead">Add new category to our site here.</p>
+
+    <hr />
+    <form method="post">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label asp-for="Name"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label asp-for="Gender"></label>
+                    <select asp-for="Gender" class="form-control">
+                        <option value="Men">Men</option>
+                        <option value="Ladies">Ladies</option>
+                    </select>
+                    <span asp-validation-for="Gender" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label asp-for="Group"></label>
+                    <select asp-for="Group" class="form-control">
+                        <option value="Clothing">Clothing</option>
+                        <option value="Footwear">Footwear</option>
+                    </select>
+                    <span asp-validation-for="Group" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-sm-12 text-center">
+                <button type="submit" class="btn btn-primary"><i class="fa fa-plus"></i> Create</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        $(function () {
+            var message = '@TempData["Success"]';
+
+            if (message.length !== 0) {
+                showNotify({ message: message });
+            }  
+        })
+    </script>
+}

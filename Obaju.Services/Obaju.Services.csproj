@@ -5,6 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="2.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Obaju.Constants\Obaju.Constants.csproj" />
     <ProjectReference Include="..\Obaju.Data\Obaju.Data.csproj" />
     <ProjectReference Include="..\Obaju.Models\Obaju.Models.csproj" />
   </ItemGroup>

@@ -37,8 +37,6 @@ namespace Obaju.App
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            //services.AddCors();
-
             services.AddDbContext<ObajuDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("ObajuConnection")));
 
@@ -81,10 +79,11 @@ namespace Obaju.App
             services.AddSingleton<IEmailSender, EmailSender>();
             services.Configure<AuthMessageSenderOptions>(Configuration.GetSection("SendGridAuth"));
 
-            // Service layer (repository)
+            // Service layer (repositories)
+            services.AddScoped<IAdminManager, AdminManager>();
+            services.AddScoped<IAccountManager, AccountManager>();
+            services.AddScoped<IProductManager, ProductManager>();
             services.AddScoped<IUtilityManager, UtilityManager>();
-            services.AddScoped<IAccountService, AccountService>();
-            services.AddScoped<IProductService, ProductService>();
 
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
@@ -112,7 +111,7 @@ namespace Obaju.App
 
             app.UseAuthentication();
 
-            //app.SeedDatabase();
+            app.SeedDatabase();
 
             app.UseMvc(routes =>
             {

@@ -1,7 +1,7 @@
 ﻿@model LoginFormBindingModel
 
 @{
-    ViewData["Title"] = "Sign In";
+    ViewData["Title"] = "Sign in";
 }
 
 <div class="container">
@@ -23,7 +23,7 @@
             </p>
             <hr>
             <form asp-action="Login" asp-route-returnUrl="@ViewBag.ReturnUrl" method="post">
-                <div asp-validation-summary="All"></div>
+                <div asp-validation-summary="All" class="text-danger"></div>
                 <form-group asp-for="Email"></form-group>
                 <form-group asp-for="Password"></form-group>
                 <div class="text-center">

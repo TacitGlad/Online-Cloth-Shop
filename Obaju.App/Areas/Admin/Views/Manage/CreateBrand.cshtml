@@ -1,0 +1,39 @@
+﻿@model CreateBrandBindingModel
+@{
+    ViewData["Title"] = "Create brand";
+}
+
+<div class="box">
+    <h1>Create brand</h1>
+    <p class="lead">Add new brand to our site here.</p>
+
+    <hr />
+    <form method="post">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label asp-for="Name"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-sm-12 text-center">
+                <button type="submit" class="btn btn-primary"><i class="fa fa-plus"></i> Create</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        $(function () {
+            var message = '@TempData["Success"]';
+
+            if (message.length !== 0) {
+                showNotify({ message: message });
+            }
+        });
+    </script>
+}

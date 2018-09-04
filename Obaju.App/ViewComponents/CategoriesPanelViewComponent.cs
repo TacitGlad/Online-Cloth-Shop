@@ -6,9 +6,9 @@ namespace Obaju.App.ViewComponents
 {
     public class CategoriesPanelViewComponent : ViewComponent
     {
-        private readonly IProductService _productService;
+        private readonly IProductManager _productService;
 
-        public CategoriesPanelViewComponent(IProductService productService)
+        public CategoriesPanelViewComponent(IProductManager productService)
         {
             _productService = productService;
         }

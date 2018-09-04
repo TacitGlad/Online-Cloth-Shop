@@ -1,0 +1,46 @@
+﻿@model SendNewsBindingModel
+@{
+    ViewData["Title"] = "Send newspaper";
+}
+
+<div class="box">
+    <h1>Send newspaper</h1>
+    <p class="lead">Here you can send an email to everyone subscribed for us.</p>
+
+    <hr />
+    <form method="post">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label asp-for="Subject"></label>
+                    <input asp-for="Subject" class="form-control" />
+                    <span asp-validation-for="Subject" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label asp-for="Message"></label>
+                    <textarea asp-for="Message" class="form-control" rows="7"></textarea>
+                    <span asp-validation-for="Message" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-sm-12 text-center">
+                <button type="submit" class="btn btn-primary"><i class="fa fa-send-o"></i> Send</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        $(function () {
+            var message = '@TempData["Success"]';
+
+            if (message.length !== 0) {
+                showNotify({ message: message });
+            }
+        });
+    </script>
+}

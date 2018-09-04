@@ -12,11 +12,11 @@
             {
                 <form asp-area="Identity" asp-controller="Auth" asp-action="Logout" method="post">
                     <ul class="menu">
-                        @if (await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), "Admin"))
+                        @if (await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), RoleName.Admin))
                         {
-                            <li><a asp-area="Admin" asp-controller="Manage" asp-action="Index">Admin area</a></li>
+                            <li><a asp-area="Admin" asp-controller="Manage" asp-action="CreateCategory">Admin panel</a></li>
                         }
-                        <li><a asp-area="Identity" asp-controller="Account" asp-action="MyAccount">My Account</a></li>
+                        <li><a asp-area="Identity" asp-controller="Account" asp-action="MyOrders">My account</a></li>
                         <li><button type="submit">Log out</button></li>
                     </ul>
                 </form>
@@ -80,7 +80,7 @@
                 </a>
             </div>
         </div>
-        @await Component.InvokeAsync("CategoryNavigation")
+        @await Component.InvokeAsync("CategoriesNav")
 
         <div class="navbar-buttons">
             <div class="navbar-collapse collapse right" id="basket-overview">

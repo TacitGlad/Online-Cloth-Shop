@@ -56,7 +56,7 @@ namespace Obaju.Services
 
         public async Task AddIssueAsync(ContactFormBindingModel contactForm)
         {
-            await _db.Issues.AddAsync(new Issues()
+            await _db.Issues.AddAsync(new Issue()
             {
                 FirstName = contactForm.FirstName,
                 LastName = contactForm.LastName,

@@ -1,0 +1,50 @@
+﻿@model IEnumerable<ListIssuesViewModel>
+@{
+    ViewData["Title"] = "Issues";
+}
+
+<div class="box">
+    <h1>Issues</h1>
+    <p class="lead">Here you can see all issues from our customers.</p>
+
+    <hr>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Order</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Subject</th>
+                    <th>Is open</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var issue in Model)
+                {
+                    <tr>
+                        <th># @issue.Id</th>
+                        <td>@issue.FirstName @issue.LastName</td>
+                        <td>@issue.Email</td>
+                        <td>@issue.Subject</td>
+                        <td>
+                            @if (issue.IsOpen == true)
+                            {
+                                <i class="fa fa-check-square-o"></i>
+                            }
+                            else
+                            {
+                                <i class="fa fa-square-o"></i>
+                            }
+                        </td>
+                        <td>
+                            <a asp-controller="Issue" asp-action="View" asp-route-id="@issue.Id" class="btn btn-primary btn-sm">View</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

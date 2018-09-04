@@ -13,14 +13,19 @@
     <div class="col-md-3">
         <div class="panel panel-default sidebar-menu">
             <div class="panel-heading">
-                <h3 class="panel-title">Customer section</h3>
+                <h3 class="panel-title">My account</h3>
             </div>
 
             <div class="panel-body">
                 <ul class="nav nav-pills nav-stacked">
-                    <li><a asp-area="Identity" asp-controller="Account" asp-action="MyOrders"><i class="fa fa-list"></i> My orders</a></li>
-                    <li><a asp-area="Identity" asp-controller="Account" asp-action="MyWishlist"><i class="fa fa-heart"></i> My wishlist</a></li>
-                    <li class="active"><a asp-area="Identity" asp-controller="Account" asp-action="MyAccount"><i class="fa fa-user"></i> My account</a></li>
+                    <li @if((string)ViewData["Title"] == "My orders") { @:class="active" 
+                        } ><a asp-area="Identity" asp-controller="Account" asp-action="MyOrders"><i class="fa fa-list"></i> My orders</a></li>
+                    <li @if ((string)ViewData["Title"] == "My wishlist") { @: class="active"
+                        }><a asp-area="Identity" asp-controller="Account" asp-action="MyWishlist"><i class="fa fa-heart"></i> My wishlist</a></li>
+                    <li @if ((string)ViewData["Title"] == "Personal details") { @: class="active"
+                        }><a asp-area="Identity" asp-controller="Account" asp-action="PersonalDetails"><i class="fa fa-user"></i> Personal details</a></li>
+                    <li @if ((string)ViewData["Title"] == "Change password") { @: class="active"
+                        }><a asp-area="Identity" asp-controller="Account" asp-action="ChangePassword"><i class="fa fa-key"></i> Change password</a></li>
                     <li><a href="index.html"><i class="fa fa-sign-out"></i> Logout</a></li>
                 </ul>
             </div>

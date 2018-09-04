@@ -25,7 +25,7 @@ namespace Obaju.Data
 
         public DbSet<Order> Orders { get; set; }
 
-        public DbSet<Issues> Issues { get; set; }
+        public DbSet<Issue> Issues { get; set; }
 
         public DbSet<OrderProduct> OrderProducts { get; set; }
 

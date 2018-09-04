@@ -1,0 +1,81 @@
+﻿@model CreateProductBindingModel
+@{
+    ViewData["Title"] = "Create product";
+}
+
+<div class="box">
+    <h1>Create product</h1>
+    <p class="lead">Add new products to our site here.</p>
+
+    <hr />
+    <form method="post" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label asp-for="Name"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label asp-for="Price"></label>
+                    <input asp-for="Price" class="form-control" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label asp-for="Color"></label>
+                    <select asp-for="Color" asp-items="@ViewBag.Colors" class="form-control"></select>
+                    <span asp-validation-for="Color" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label asp-for="Details"></label>
+                    <textarea asp-for="Details" class="form-control" rows="7"></textarea>
+                    <span asp-validation-for="Details" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label asp-for="CategoryId"></label>
+                    <select asp-for="CategoryId" asp-items="@ViewBag.Categories" class="form-control"></select>
+                    <span asp-validation-for="CategoryId" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label asp-for="BrandId"></label>
+                    <select asp-for="BrandId" asp-items="@ViewBag.Brands" class="form-control"></select>
+                    <span asp-validation-for="BrandId" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label asp-for="Images"></label>
+                    <input asp-for="Images" class="form-control" multiple />
+                    <span asp-validation-for="Images" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-sm-12 text-center">
+                <button type="submit" class="btn btn-primary"><i class="fa fa-plus"></i> Create</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        $(function () {
+            var message = '@TempData["Success"]';
+
+            if (message.length !== 0) {
+                showNotify({ message: message });
+            }
+        });
+    </script>
+}

@@ -16,84 +16,12 @@
         </ul>
     </div>
     <div class="col-md-3">
-        <div class="panel panel-default sidebar-menu">
-            <div class="panel-heading">
-                <h3 class="panel-title">Categories</h3>
-            </div>
-            @await Component.InvokeAsync("CategoriesPanel")
-        </div>
+        @await Component.InvokeAsync("CategoriesPanel")
 
-        <div class="panel panel-default sidebar-menu">
-            <div class="panel-heading">
-                <h3 class="panel-title">Brands <a class="btn btn-xs btn-danger pull-right" href="#"><i class="fa fa-times-circle"></i> Clear</a></h3>
-            </div>
-            <div class="panel-body">
-                <form>
-                    <div class="form-group">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" />Armani (10)
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" />Versace (12)
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" />Carlo Bruni (15)
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" />Jack Honey (14)
-                            </label>
-                        </div>
-                    </div>
-                    <button class="btn btn-default btn-sm btn-primary"><i class="fa fa-pencil"></i> Apply</button>
-                </form>
-            </div>
-        </div>
+        @await Component.InvokeAsync("BrandsPanel")
 
-        <div class="panel panel-default sidebar-menu">
-            <div class="panel-heading">
-                <h3 class="panel-title">Colours <a class="btn btn-xs btn-danger pull-right" href="#"><i class="fa fa-times-circle"></i> Clear</a></h3>
-            </div>
+        @await Component.InvokeAsync("ColorsPanel")
 
-            <div class="panel-body">
-                <form>
-                    <div class="form-group">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox"> <span class="colour white"></span> White (14)
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox"> <span class="colour blue"></span> Blue (10)
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox"> <span class="colour green"></span> Green (20)
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox"> <span class="colour yellow"></span> Yellow (13)
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox"> <span class="colour red"></span> Red (10)
-                            </label>
-                        </div>
-                    </div>
-                    <button class="btn btn-default btn-sm btn-primary"><i class="fa fa-pencil"></i> Apply</button>
-                </form>
-            </div>
-        </div>
         <div class="banner">
             <a href="#">
                 <img src="~/images/banner.jpg" alt="sales 2014" class="img-responsive">
@@ -143,22 +71,22 @@
                         <div class="flip-container">
                             <div class="flipper">
                                 <div class="front">
-                                    <a href="detail.html">
-                                        <img src="@product.FrontImage" alt="" class="img-responsive">
+                                    <a asp-action="Details" asp-route-id="@product.Id">
+                                        <img src="~/@product.FrontImage" alt="" class="img-responsive">
                                     </a>
                                 </div>
                                 <div class="back">
-                                    <a href="detail.html">
-                                        <img src="@product.BackImage" alt="" class="img-responsive">
+                                    <a asp-action="Details" asp-route-id="@product.Id">
+                                        <img src="~/@product.BackImage" alt="" class="img-responsive">
                                     </a>
                                 </div>
                             </div>
                         </div>
-                        <a href="detail.html" class="invisible">
-                            <img src="@product.FrontImage" alt="" class="img-responsive">
+                        <a asp-action="Details" asp-route-id="@product.Id" class="invisible">
+                            <img src="~/@product.FrontImage" alt="" class="img-responsive">
                         </a>
                         <div class="text">
-                            <h3><a href="detail.html">@product.Name</a></h3>
+                            <h3><a asp-action="Details" asp-route-id="@product.Id">@product.Name</a></h3>
                             <p class="price">$@product.Price</p>
                             <p class="buttons">
                                 <a asp-action="Details" asp-route-id="@product.Id" class="btn btn-default">View detail</a>
