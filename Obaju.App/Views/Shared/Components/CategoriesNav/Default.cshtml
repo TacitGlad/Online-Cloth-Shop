@@ -1,10 +1,11 @@
-﻿@model List<CategoriesViewModel>
+﻿@model List<NavCategoriesViewModel>
 
-@{ 
-    var menClothingCategories = Model.Where(c => c.Gender == Gender.Men && c.Type == "Clothing");
-    var menFootwearCategories = Model.Where(c => c.Gender == Gender.Men && c.Type == "Footwear");
-    var ladiesClothingCategories = Model.Where(c => c.Gender == Gender.Ladies && c.Type == "Clothing");
-    var ladiesFootwearCategories = Model.Where(c => c.Gender == Gender.Ladies && c.Type == "Footwear");
+@{
+    var menCategories = Model.Where(c => c.Gender == Gender.Men)
+        .GroupBy(c => c.Type);
+
+    var ladiesCategories = Model.Where(c => c.Gender == Gender.Ladies)
+        .GroupBy(c => c.Type);
 }
 
 <div class="navbar-collapse collapse" id="navigation">
@@ -16,24 +17,18 @@
                 <li>
                     <div class="yamm-content">
                         <div class="row">
-                            <div class="col-sm-3">
-                                <h5>Clothing</h5>
-                                <ul>
-                                    @foreach (var category in menClothingCategories)
-                                    {
-                                        <li><a asp-area="" asp-controller="Product" asp-action="Categories" asp-route-categoryName="@category.Name" asp-route-categoryGender="@category.Gender">@category.Name</a></li>
-                                    }
-                                </ul>
-                            </div>
-                            <div class="col-sm-3">
-                                <h5>Footwear</h5>
-                                <ul>
-                                    @foreach (var category in menFootwearCategories)
-                                    {
-                                        <li><a asp-area="" asp-controller="Product" asp-action="Categories" asp-route-categoryName="@category.Name" asp-route-categoryGender="@category.Gender">@category.Name</a></li>
-                                    }
-                                </ul>
-                            </div>
+                            @foreach (var group in menCategories)
+                            {
+                                <div class="col-sm-3">
+                                    <h5>@group.Key</h5>
+                                    <ul>
+                                        @foreach (var category in group)
+                                        {
+                                            <li><a asp-route="products" asp-route-gender="@category.Gender" asp-route-category="@category.Name.Replace(' ', '-')">@category.Name</a></li>
+                                        }
+                                    </ul>
+                                </div>
+                            }
                             <div class="col-sm-3">
                                 <h5>Featured</h5>
                                 <ul>
@@ -59,24 +54,18 @@
                 <li>
                     <div class="yamm-content">
                         <div class="row">
-                            <div class="col-sm-3">
-                                <h5>Clothing</h5>
-                                <ul>
-                                    @foreach (var category in ladiesClothingCategories)
-                                    {
-                                        <li><a asp-area="" asp-controller="Product" asp-action="Categories" asp-route-categoryName="@category.Name" asp-route-categoryGender="@category.Gender">@category.Name</a></li>
-                                    }
-                                </ul>
-                            </div>
-                            <div class="col-sm-3">
-                                <h5>Footwear</h5>
-                                <ul>
-                                    @foreach (var category in ladiesFootwearCategories)
-                                    {
-                                        <li><a asp-area="" asp-controller="Product" asp-action="Categories" asp-route-categoryName="@category.Name" asp-route-categoryGender="@category.Gender">@category.Name</a></li>
-                                    }
-                                </ul>
-                            </div>
+                            @foreach (var group in ladiesCategories)
+                            {
+                                <div class="col-sm-3">
+                                    <h5>@group.Key</h5>
+                                    <ul>
+                                        @foreach (var category in group)
+                                        {
+                                            <li><a asp-route="products" asp-route-gender="@category.Gender" asp-route-category="@category.Name.Replace(' ', '-')">@category.Name</a></li>
+                                        }
+                                    </ul>
+                                </div>
+                            }
                             <div class="col-sm-3">
                                 <h5>Featured</h5>
                                 <ul>

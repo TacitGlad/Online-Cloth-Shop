@@ -8,19 +8,19 @@
     <div class="col-md-12">
         <ul class="breadcrumb">
             <li><a asp-controller="Home" asp-action="Index">Home</a></li>
-            <li>@ViewBag.CategoryGender</li>
-            @if (ViewBag.CategoryName != null)
+            <li>@ViewBag.Gender</li>
+            @if (ViewBag.Category != null)
             {
-                <li>@ViewBag.CategoryName</li>
+                <li>@ViewBag.Category</li>
             }
         </ul>
     </div>
     <div class="col-md-3">
         @await Component.InvokeAsync("CategoriesPanel")
 
-        @await Component.InvokeAsync("BrandsPanel")
+        @await Component.InvokeAsync("BrandsPanel", new { gender = ViewBag.Gender, category = ViewBag.Category })
 
-        @await Component.InvokeAsync("ColorsPanel")
+        @await Component.InvokeAsync("ColorsPanel", new { gender = ViewBag.Gender, category = ViewBag.Category })
 
         <div class="banner">
             <a href="#">
@@ -31,8 +31,8 @@
 
     <div class="col-md-9">
         <div class="box">
-            <h1>@ViewBag.CategoryGender</h1>
-            <p>In our @ViewBag.CategoryGender department we offer wide selection of the best products we have found and carefully selected worldwide.</p>
+            <h1>@ViewBag.Gender</h1>
+            <p>In our @ViewBag.Gender department we offer wide selection of the best products we have found and carefully selected worldwide.</p>
         </div>
 
         <div class="box info-bar">
@@ -40,20 +40,26 @@
                 <div class="col-sm-12 col-md-4 products-showing">
                     Showing <strong>12</strong> of <strong>25</strong> products
                 </div>
-                <div class="col-sm-12 col-md-8  products-number-sort">
+                <div class="col-sm-12 col-md-8 products-number-sort">
                     <div class="row">
                         <form class="form-inline">
                             <div class="col-md-6 col-sm-6">
                                 <div class="products-number">
-                                    <strong>Show</strong>  <a href="#" class="btn btn-default btn-sm btn-primary">12</a>  <a href="#" class="btn btn-default btn-sm">24</a>  <a href="#" class="btn btn-default btn-sm">All</a> products
+                                    <strong>Show</strong>
+                                    <a href="#" class="btn btn-default btn-sm btn-primary">12</a>
+                                    <a href="#" class="btn btn-default btn-sm">24</a>
+                                    <a href="#" class="btn btn-default btn-sm">All</a> products
                                 </div>
                             </div>
                             <div class="col-md-6 col-sm-6">
                                 <div class="products-sort-by">
                                     <strong>Sort by</strong>
                                     <select name="sort-by" class="form-control">
-                                        <option>Price</option>
-                                        <option>Name</option>
+                                        <option>Price asc.</option>
+                                        <option>Price desc.</option>
+                                        <option>Newst</option>
+                                        <option>Oldest</option>
+                                        <option>Discout</option>
                                     </select>
                                 </div>
                             </div>

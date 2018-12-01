@@ -1,19 +1,17 @@
-﻿@model IEnumerable<string>
-@{
-}
+﻿@model IList<BrandsViewModel>
 
 <div class="panel panel-default sidebar-menu">
     <div class="panel-heading">
-        <h3 class="panel-title">Brands <a class="btn btn-xs btn-danger pull-right" href="#"><i class="fa fa-times-circle"></i> Clear</a></h3>
+        <h3 class="panel-title">Brands <button type="reset" class="btn btn-xs btn-danger pull-right" href="#"><i class="fa fa-times-circle"></i> Clear</button></h3>
     </div>
     <div class="panel-body">
-        <form>
+        <form asp-route="products" asp-route-gender="@ViewBag.Gender" asp-route-category="@ViewBag.Category" method="get">
             <div class="form-group">
                 @foreach (var brand in Model)
                 {
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" />@brand (10)
+                            <input name="@brand.Name" type="checkbox" value="true" />@brand.Name (@brand.Count)
                         </label>
                     </div>
                 }

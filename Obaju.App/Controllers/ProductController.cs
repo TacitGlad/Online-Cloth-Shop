@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Obaju.Models.ViewModels;
 using Obaju.Services.Interfaces;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Obaju.App.Controllers
@@ -13,12 +16,12 @@ namespace Obaju.App.Controllers
             _productManager = productManager;
         }
 
-        public async Task<IActionResult> Categories(string categoryGender, string categoryName)
+        public async Task<IActionResult> Categories(string gender, string category, Dictionary<string, bool> brandsFilter)
         {
-            ViewBag.CategoryGender = categoryGender;
-            ViewBag.CategoryName = categoryName;
+            ViewBag.Gender = gender;
+            ViewBag.Category = category;
 
-            var productList = await _productManager.GetProductList(categoryGender, categoryName);
+            var productList = await _productManager.GetProductList(gender, category, brandsFilter.Keys.ToList());
 
             return View(productList);
         }

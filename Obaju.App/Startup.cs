@@ -38,7 +38,7 @@ namespace Obaju.App
             });
 
             services.AddDbContext<ObajuDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("ObajuConnection")));
+                options.UseSqlServer(Configuration.GetSection("ObajuDbConnection").Value));
 
             services.AddIdentity<User, IdentityRole>()
             .AddEntityFrameworkStores<ObajuDbContext>()
@@ -122,6 +122,11 @@ namespace Obaju.App
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+
+                routes.MapRoute(
+                    name: "products",
+                    template: "product/categories/{gender:regex(^(ladies|men)$):required}/{category}",
+                    defaults: new { controller = "Product", action = "Categories" });
             });
         }
     }

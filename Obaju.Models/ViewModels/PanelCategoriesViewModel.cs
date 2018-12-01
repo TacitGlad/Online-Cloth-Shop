@@ -1,6 +1,6 @@
 ﻿namespace Obaju.Models.ViewModels
 {
-    public class CategoriesWithProductsCountViewModel
+    public class PanelCategoriesViewModel
     {
         public string Name { get; set; }
 

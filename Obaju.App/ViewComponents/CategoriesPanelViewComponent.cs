@@ -15,9 +15,10 @@ namespace Obaju.App.ViewComponents
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-           var categories = _productService.GetCategorisWithProductCount();
+           var categories = await _productService
+                .GetPanelCategorisAsync();
 
-            return await Task.FromResult(View(categories));
+            return View(categories);
         }
     }
 }

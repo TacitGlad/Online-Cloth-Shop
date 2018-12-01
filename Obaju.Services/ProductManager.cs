@@ -19,66 +19,73 @@ namespace Obaju.Services
             _db = db;
         }
 
-        public IList<CategoriesViewModel> GetCategoris()
+        public Task<List<NavCategoriesViewModel>> GetNavCategorisAsync()
         {
             return _db.Categories.
-                Select(c => new CategoriesViewModel()
+                Select(c => new NavCategoriesViewModel()
                 {
                     Name = c.Name,
                     Gender = c.Gender,
                     Type = c.Type
                 })
-                .ToList();
+                .ToListAsync();
         }
 
-        public IList<CategoriesWithProductsCountViewModel> GetCategorisWithProductCount()
+        public Task<List<PanelCategoriesViewModel>> GetPanelCategorisAsync()
         {
             return _db.Categories.
-                Select(c => new CategoriesWithProductsCountViewModel()
+                Select(c => new PanelCategoriesViewModel()
                 {
                     Name = c.Name,
                     Gender = c.Gender,
                     ProductsCount = c.Products.Count()
                 })
-                .ToList();
+                .ToListAsync();
         }
 
-        public IList<BrandsViewModel> GetBrands()
+        public Task<List<BrandsViewModel>> GetBrandsAsync()
         {
             return _db.Brands.
                 Select(b => new BrandsViewModel()
                 {
+                    Id = b.Id,
                     Name = b.Name,
-                    Count = b.Products.Count()
+                    Count = b.Products.Count
                 })
-                .ToList();
+                .ToListAsync();
         }
 
-        public async Task<IList<ProductListViewModel>> GetProductList(string categoryGender, string categoryName)
+        public async Task<IList<ProductListViewModel>> GetProductList(string gender, string category, IList<string> brandsFilter)
         {
             IList<Product> products;
 
-            if (categoryName == null)
+            if (category == null)
             {
                 products = await _db.Products
                     .Include(p => p.Images)
-                    .Where(p => p.Category.Gender == categoryGender)
+                    .Where(p => p.Category.Gender == gender)
                     .ToListAsync();
             }
             else
             {
                 products = await _db.Products
                     .Include(p => p.Images)
-                    .Where(p => p.Category.Gender == categoryGender && p.Category.Name == categoryName)
+                    .Where(p => p.Category.Gender == gender && p.Category.Name == category)
                     .ToListAsync();
             }
 
-            List<ProductListViewModel> productList = new List<ProductListViewModel>();
+            IList<ProductListViewModel> productList = new List<ProductListViewModel>();
 
             foreach (var product in products)
             {
+                if(!brandsFilter.Contains(product.Brand.Name))
+                {
+                    continue;
+                }
+
                 var images = product.Images;
 
+                // TODO: add default image if null
                 var frontImage = images.FirstOrDefault().Path;
                 var backImage = images.Skip(1).FirstOrDefault().Path;
 

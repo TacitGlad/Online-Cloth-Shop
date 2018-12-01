@@ -2,7 +2,7 @@
 {
     public static class FormLabel
     {
-        public const string FirstName = "First fame";
+        public const string FirstName = "First name";
 
         public const string LastName = "Last name";
 

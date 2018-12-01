@@ -1,25 +1,24 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Obaju.Services.Interfaces;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Obaju.App.ViewComponents
 {
     public class BrandsPanelViewComponent : ViewComponent
     {
-        public readonly IAdminManager _adminManager;
+        public readonly IProductManager _productManager;
 
-        public BrandsPanelViewComponent(IAdminManager adminManager)
+        public BrandsPanelViewComponent(IProductManager productManager)
         {
-            _adminManager = adminManager;
+            _productManager = productManager;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync()
+        public async Task<IViewComponentResult> InvokeAsync(string categoryGender, string categoryName)
         {
-            var viewModel = await _adminManager
-                .GetAllBrandsSelectListAsync();
+            var viewModel = await _productManager
+                .GetBrandsAsync();
 
-            return View(viewModel.Select(b => b.Text));
+            return View(viewModel);
         }
     }
 }

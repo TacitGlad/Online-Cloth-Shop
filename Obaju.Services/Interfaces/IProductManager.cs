@@ -6,13 +6,13 @@ namespace Obaju.Services.Interfaces
 {
     public interface IProductManager
     {
-        IList<CategoriesViewModel> GetCategoris();
+        Task<List<NavCategoriesViewModel>> GetNavCategorisAsync();
 
-        IList<CategoriesWithProductsCountViewModel> GetCategorisWithProductCount();
+        Task<List<PanelCategoriesViewModel>> GetPanelCategorisAsync();
 
-        IList<BrandsViewModel> GetBrands();
+        Task<List<BrandsViewModel>> GetBrandsAsync();
 
-        Task<IList<ProductListViewModel>> GetProductList(string categoryGender, string categoryName);
+        Task<IList<ProductListViewModel>> GetProductList(string gender, string category, IList<string> brandsFilter);
 
         Task<ProductDetailsViewModel> GetProductDetailsAsync(int id);
     }

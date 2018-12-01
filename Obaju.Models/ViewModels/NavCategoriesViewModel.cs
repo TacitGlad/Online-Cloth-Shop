@@ -1,6 +1,6 @@
 ﻿namespace Obaju.Models.ViewModels
 {
-    public class CategoriesViewModel
+    public class NavCategoriesViewModel
     {
         public string Name { get; set; }
 
