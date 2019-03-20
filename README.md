@@ -1,6 +1,8 @@
 # Obaju
 > Online Apparel Shop
 
+It's developed on ASP.NET Core MVC! This is online apparel shop where you can buy apparels from different categories. There is also an admin panel were you can manage a lot of stuffs.
+
 ## Installation
 Restore dependencies and tools for the project:
 ```bash
