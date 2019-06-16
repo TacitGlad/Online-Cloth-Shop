@@ -57,28 +57,27 @@ namespace Obaju.Services
 
         public async Task<IList<ProductListViewModel>> GetProductList(string gender, string category, IList<string> brandsFilter)
         {
-            IList<Product> products;
-
+            IQueryable<Product> query = _db.Products;
+               
             if (category == null)
             {
-                products = await _db.Products
-                    .Include(p => p.Images)
-                    .Where(p => p.Category.Gender == gender)
-                    .ToListAsync();
+                query = query.Where(p => p.Category.Gender == gender);
             }
             else
             {
-                products = await _db.Products
-                    .Include(p => p.Images)
-                    .Where(p => p.Category.Gender == gender && p.Category.Name == category)
-                    .ToListAsync();
+                query = query.Where(p => p.Category.Gender == gender && p.Category.Name == category);
             }
+
+            var products = await query
+                .Include(p => p.Images)
+                .Include(p => p.Brand)
+                .ToListAsync();
 
             IList<ProductListViewModel> productList = new List<ProductListViewModel>();
 
             foreach (var product in products)
             {
-                if(!brandsFilter.Contains(product.Brand.Name))
+                if (brandsFilter.Count > 0 && !brandsFilter.Contains(product.Brand.Name))
                 {
                     continue;
                 }
